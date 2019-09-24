@@ -39,7 +39,7 @@ class ViewController2: UIViewController {
         
         let contView : UIView = UIView()
         contView.translatesAutoresizingMaskIntoConstraints = false
-        contView.backgroundColor = .red
+//        contView.backgroundColor = .red
         return contView
     }()
     
@@ -61,7 +61,7 @@ class ViewController2: UIViewController {
         bt.translatesAutoresizingMaskIntoConstraints = false
         bt.setTitleColor(UIColor.white, for: .normal)
         bt.setTitleColor(UIColor.gray, for: .highlighted)
-        bt.titleLabel?.font = .systemFont(ofSize: 30)
+        bt.titleLabel?.font = .systemFont(ofSize: 15)
 
         bt.layer.borderWidth = 2.0
         bt.layer.borderColor = UIColor.white.cgColor
@@ -73,7 +73,7 @@ class ViewController2: UIViewController {
         return bt
     }()
     
-    let diceIndex = 0
+    var diceIndex = 0
     
     let diceImageArray : Array = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
     
@@ -92,8 +92,8 @@ class ViewController2: UIViewController {
         
         diceArray = [dice1, dice2, dice3, dice4, dice5, dice6]
         dice1.image = UIImage(named: "dice1")
-        dice1.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-        dice1.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+//        dice1.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+//        dice1.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
         dice2.image = UIImage(named: "dice1")
         dice3.image = UIImage(named: "dice1")
                 
@@ -104,7 +104,7 @@ class ViewController2: UIViewController {
         view.addSubview(changeImageButton)
         containerView.addSubview(stackView)
         
-        pointOfWillTextView.text = "Number of image: \(Int(pointOfWillSlider.value))"
+        pointOfWillTextView.text = "Current point of will: \(Int(pointOfWillSlider.value))"
 //        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         
         setupLayout()
@@ -157,12 +157,18 @@ class ViewController2: UIViewController {
         
         pointOfWillTextView.text = "Current point of will: \(Int(pointOfWillSlider.value))"
         
-        if sender.value >= 2 && sender.value < 3 {
+        if sender.value >= 2 && sender.value < 3 && stackView.arrangedSubviews.count < 2 {
             dice2.image = UIImage(named: "dice1")
             stackView.addArrangedSubview(dice2)
-        } else if sender.value >= 3{
+        } else if sender.value >= 2 && sender.value < 3 && stackView.arrangedSubviews.count > 2 {
+            stackView.removeArrangedSubview(dice3)
+            dice3.removeFromSuperview()
+        } else if sender.value >= 3 && stackView.arrangedSubviews.count < 3 {
             dice3.image = UIImage(named: "dice1")
             stackView.addArrangedSubview(dice3)
+        } else if sender.value < 2 && stackView.arrangedSubviews.count == 2 {
+            stackView.removeArrangedSubview(dice2)
+            dice2.removeFromSuperview()
         }
     }
     
@@ -177,5 +183,17 @@ class ViewController2: UIViewController {
     
     @objc func buttonAction(_ : UIButton) {
         
+        for case let imageView as UIImageView in stackView.arrangedSubviews {
+            diceIndex = Int(arc4random_uniform(6))
+            imageView.image = UIImage(named: diceImageArray[diceIndex])
+        }
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        for case let imageView as UIImageView in stackView.arrangedSubviews {
+            diceIndex = Int(arc4random_uniform(6))
+            imageView.image = UIImage(named: diceImageArray[diceIndex])
+        }
     }
 }
+
