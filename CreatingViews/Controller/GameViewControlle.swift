@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
+class GameViewControlle: UIViewController {
     
     let pointOfWillSlider : UISlider = {
         
@@ -17,7 +17,7 @@ class ViewController2: UIViewController {
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         slider.value = 1
         slider.minimumValue = 1
-        slider.maximumValue = 6
+        slider.maximumValue = 5
         return slider
         
     }()
@@ -29,7 +29,7 @@ class ViewController2: UIViewController {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.font = UIFont.boldSystemFont(ofSize: 18)
-        textView.backgroundColor = .orange
+        textView.backgroundColor = .none
         textView.textAlignment = .center
         return textView
         
@@ -94,7 +94,7 @@ class ViewController2: UIViewController {
     
     var diceIndex = 0
     
-    let diceImageArray : Array = ["dice1", "dice2", "dice3", "dice4", "dice5", "dice6"]
+    let diceImageArray : Array = ["dice11", "dice22", "dice33", "dice44", "dice55", "dice66"]
     
     let dice1 : UIImageView = UIImageView()
     let dice2 : UIImageView = UIImageView()
@@ -132,58 +132,6 @@ class ViewController2: UIViewController {
         
     }
     
-    private func setupLayout() {
-        
-        view.backgroundColor = .orange
-        
-        navigationController?.navigationBar.barTintColor = .orange
-        title = "Test"
-        
-        let topBarHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0.0)
-        
-        pointOfWillSlider.topAnchor.constraint(equalTo: view.topAnchor, constant: topBarHeight + 25).isActive = true
-        pointOfWillSlider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        pointOfWillSlider.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-//        pointOfWillSlider.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-//        pointOfWillSlider.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-        
-        pointOfWillTextView.topAnchor.constraint(equalTo: pointOfWillSlider.bottomAnchor, constant: 10).isActive = true
-        pointOfWillTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-        pointOfWillTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
-        
-        
-        firstContainerView.topAnchor.constraint(equalTo: pointOfWillTextView.bottomAnchor, constant: 20).isActive = true
-        firstContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        firstContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        firstContainerView.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-        
-        firstStackView.topAnchor.constraint(equalTo: firstContainerView.topAnchor, constant: 0).isActive = true
-        firstStackView.leftAnchor.constraint(equalTo: firstContainerView.leftAnchor, constant: calculateCubeSide() / 3.5).isActive = true
-        firstStackView.rightAnchor.constraint(equalTo: firstContainerView.rightAnchor, constant: -(calculateCubeSide() / 3.5)).isActive = true
-        firstStackView.bottomAnchor.constraint(equalTo: firstContainerView.bottomAnchor, constant: 0).isActive = true
-        
-        secondContainerView.topAnchor.constraint(equalTo: firstContainerView.bottomAnchor, constant: 20).isActive = true
-        secondContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        secondContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        secondContainerView.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-        
-        secondStackView.topAnchor.constraint(equalTo: secondContainerView.topAnchor, constant: 0).isActive = true
-        secondStackView.leftAnchor.constraint(equalTo: secondContainerView.leftAnchor, constant: calculateCubeSide() / 3).isActive = true
-        secondStackView.rightAnchor.constraint(equalTo: secondContainerView.rightAnchor, constant: -(calculateCubeSide() / 3)).isActive = true
-        secondStackView.bottomAnchor.constraint(equalTo: secondContainerView.bottomAnchor, constant: 0).isActive = true
-        
-        changeImageButton.topAnchor.constraint(equalTo: secondContainerView.bottomAnchor, constant: 30).isActive = true
-        changeImageButton.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
-        changeImageButton.heightAnchor.constraint(equalToConstant: calculateCubeSide()/2).isActive = true
-        changeImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        for i in 0..<diceArray.count {
-            diceArray[i].contentMode = .scaleAspectFit
-            diceArray[i].image = UIImage(named: "dice1")
-        }
-        
-    }
-    
     @objc private func changeValue(sender : UISlider) {
         
         pointOfWillTextView.text = "Current point of will: \(Int(pointOfWillSlider.value))"
@@ -206,57 +154,107 @@ class ViewController2: UIViewController {
         }
     }
     
-    private func updateNumberOfDice(_ value : Float = 1) {
-        
-        if value >= 2 && value < 3 && firstStackView.arrangedSubviews.count < 2 {
-            dice2.image = UIImage(named: "dice1")
-            firstStackView.addArrangedSubview(dice2)
-        } else if value >= 2 && value < 3 && firstStackView.arrangedSubviews.count > 2 {
-            firstStackView.removeArrangedSubview(dice3)
-            dice3.removeFromSuperview()
-        } else if value >= 3 && firstStackView.arrangedSubviews.count < 3 {
-            dice3.image = UIImage(named: "dice1")
-            firstStackView.addArrangedSubview(dice3)
-        } else if value < 2 && firstStackView.arrangedSubviews.count == 2 {
-            firstStackView.removeArrangedSubview(dice2)
-            dice2.removeFromSuperview()
-        } else if value >= 4 && value < 5 && secondStackView.arrangedSubviews.count < 1 {
-            dice4.image = UIImage(named: "dice1")
-            secondStackView.addArrangedSubview(dice4)
-        } else if value < 4 && secondStackView.arrangedSubviews.count >= 1 {
-            secondStackView.removeArrangedSubview(dice4)
-            dice4.removeFromSuperview()
-        } else if value >= 5 && value < 6 && secondStackView.arrangedSubviews.count < 2 {
-            dice5.image = UIImage(named: "dice1")
-            secondStackView.addArrangedSubview(dice5)
-        } else if value < 5 && value >= 4 && secondStackView.arrangedSubviews.count >= 2 {
-            secondStackView.removeArrangedSubview(dice5)
-            dice5.removeFromSuperview()
-        }
-        
-    }
-    
     private func rollDice() {
-        
         for case let imageView as UIImageView in firstStackView.arrangedSubviews {
-            diceIndex = Int(arc4random_uniform(6))
+            diceIndex = Int.random(in: 0..<6) //(arc4random_uniform(6))
             imageView.image = UIImage(named: diceImageArray[diceIndex])
         }
         
         if secondStackView.arrangedSubviews.count > 0 {
             for case let imageView as UIImageView in secondStackView.arrangedSubviews {
-                diceIndex = Int(arc4random_uniform(6))
+                diceIndex = Int.random(in: 0..<6) //(arc4random_uniform(6))
                 imageView.image = UIImage(named: diceImageArray[diceIndex])
             }
         }
-        
     }
-    
-
-    
+     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         rollDice()
         
     }
 }
 
+
+extension GameViewControlle {
+    
+        private func setupLayout() {
+            
+    //        view.backgroundColor = .orange
+            
+    //        navigationController?.navigationBar.barTintColor = .orange
+            title = "Andor Dice"
+            
+            let topBarHeight = UIApplication.shared.statusBarFrame.size.height + (self.navigationController?.navigationBar.frame.height ?? 0.0)
+            
+            pointOfWillSlider.topAnchor.constraint(equalTo: view.topAnchor, constant: topBarHeight + 25).isActive = true
+            pointOfWillSlider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+            pointOfWillSlider.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+    //        pointOfWillSlider.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+    //        pointOfWillSlider.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+            
+            pointOfWillTextView.topAnchor.constraint(equalTo: pointOfWillSlider.bottomAnchor, constant: 10).isActive = true
+            pointOfWillTextView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+            pointOfWillTextView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+            
+            
+            firstContainerView.topAnchor.constraint(equalTo: pointOfWillTextView.bottomAnchor, constant: 20).isActive = true
+            firstContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+            firstContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+            firstContainerView.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+            
+            firstStackView.topAnchor.constraint(equalTo: firstContainerView.topAnchor, constant: 0).isActive = true
+            firstStackView.leftAnchor.constraint(equalTo: firstContainerView.leftAnchor, constant: calculateCubeSide() / 3.5).isActive = true
+            firstStackView.rightAnchor.constraint(equalTo: firstContainerView.rightAnchor, constant: -(calculateCubeSide() / 3.5)).isActive = true
+            firstStackView.bottomAnchor.constraint(equalTo: firstContainerView.bottomAnchor, constant: 0).isActive = true
+            
+            secondContainerView.topAnchor.constraint(equalTo: firstContainerView.bottomAnchor, constant: 20).isActive = true
+            secondContainerView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+            secondContainerView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+            secondContainerView.heightAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+            
+            secondStackView.topAnchor.constraint(equalTo: secondContainerView.topAnchor, constant: 0).isActive = true
+            secondStackView.leftAnchor.constraint(equalTo: secondContainerView.leftAnchor, constant: calculateCubeSide() / 3).isActive = true
+            secondStackView.rightAnchor.constraint(equalTo: secondContainerView.rightAnchor, constant: -(calculateCubeSide() / 3)).isActive = true
+            secondStackView.bottomAnchor.constraint(equalTo: secondContainerView.bottomAnchor, constant: 0).isActive = true
+            
+            changeImageButton.topAnchor.constraint(equalTo: secondContainerView.bottomAnchor, constant: 30).isActive = true
+            changeImageButton.widthAnchor.constraint(equalToConstant: calculateCubeSide()).isActive = true
+            changeImageButton.heightAnchor.constraint(equalToConstant: calculateCubeSide()/2).isActive = true
+            changeImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            
+            for i in 0..<diceArray.count {
+                diceArray[i].contentMode = .scaleAspectFit
+                diceArray[i].image = UIImage(named: "dice11")
+            }
+            
+        }
+    
+    private func updateNumberOfDice(_ value : Float = 1) {
+        
+        if value >= 2 && value < 3 && firstStackView.arrangedSubviews.count < 2 {
+            dice2.image = UIImage(named: "dice11")
+            firstStackView.addArrangedSubview(dice2)
+        } else if value >= 2 && value < 3 && firstStackView.arrangedSubviews.count > 2 {
+            firstStackView.removeArrangedSubview(dice3)
+            dice3.removeFromSuperview()
+        } else if value >= 3 && firstStackView.arrangedSubviews.count < 3 {
+            dice3.image = UIImage(named: "dice11")
+            firstStackView.addArrangedSubview(dice3)
+        } else if value < 2 && firstStackView.arrangedSubviews.count == 2 {
+            firstStackView.removeArrangedSubview(dice2)
+            dice2.removeFromSuperview()
+        } else if value >= 4 && value < 5 && secondStackView.arrangedSubviews.count < 1 {
+            dice4.image = UIImage(named: "dice11")
+            secondStackView.addArrangedSubview(dice4)
+        } else if value < 4 && secondStackView.arrangedSubviews.count >= 1 {
+            secondStackView.removeArrangedSubview(dice4)
+            dice4.removeFromSuperview()
+        } else if value >= 5 && value < 6 && secondStackView.arrangedSubviews.count < 2 {
+            dice5.image = UIImage(named: "dice11")
+            secondStackView.addArrangedSubview(dice5)
+        } else if value < 5 && value >= 4 && secondStackView.arrangedSubviews.count >= 2 {
+            secondStackView.removeArrangedSubview(dice5)
+            dice5.removeFromSuperview()
+        }
+    }
+}

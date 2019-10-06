@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3337230E2337175700B26B70 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337230D2337175700B26B70 /* ViewController2.swift */; };
+		332741F3233D444100AFD4D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 332741F2233D444000AFD4D9 /* Assets.xcassets */; };
+		3337230E2337175700B26B70 /* GameViewControlle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3337230D2337175700B26B70 /* GameViewControlle.swift */; };
 		333723142339333700B26B70 /* MyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333723132339333700B26B70 /* MyView.swift */; };
 		33DFE17B2334C67D003E9358 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE17A2334C67D003E9358 /* AppDelegate.swift */; };
 		33DFE17D2334C67D003E9358 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE17C2334C67D003E9358 /* ViewController.swift */; };
 		33DFE1802334C67D003E9358 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DFE17E2334C67D003E9358 /* Main.storyboard */; };
-		33DFE1822334C680003E9358 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 33DFE1812334C680003E9358 /* Assets.xcassets */; };
 		33DFE1852334C680003E9358 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DFE1832334C680003E9358 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3337230D2337175700B26B70 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		332741F2233D444000AFD4D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3337230D2337175700B26B70 /* GameViewControlle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControlle.swift; sourceTree = "<group>"; };
 		333723132339333700B26B70 /* MyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyView.swift; sourceTree = "<group>"; };
 		33DFE1772334C67D003E9358 /* CreatingViews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CreatingViews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33DFE17A2334C67D003E9358 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33DFE17C2334C67D003E9358 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		33DFE17F2334C67D003E9358 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		33DFE1812334C680003E9358 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		33DFE1842334C680003E9358 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33DFE1862334C680003E9358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -39,6 +39,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		332741EF233C8A5700AFD4D9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33DFE17C2334C67D003E9358 /* ViewController.swift */,
+				3337230D2337175700B26B70 /* GameViewControlle.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		332741F0233C8A7100AFD4D9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				33DFE17E2334C67D003E9358 /* Main.storyboard */,
+				33DFE1832334C680003E9358 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		332741F1233C8A8500AFD4D9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		33DFE16E2334C67D003E9358 = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +83,13 @@
 		33DFE1792334C67D003E9358 /* CreatingViews */ = {
 			isa = PBXGroup;
 			children = (
-				33DFE17A2334C67D003E9358 /* AppDelegate.swift */,
-				33DFE17C2334C67D003E9358 /* ViewController.swift */,
-				3337230D2337175700B26B70 /* ViewController2.swift */,
+				332741F1233C8A8500AFD4D9 /* Model */,
+				332741EF233C8A5700AFD4D9 /* Controller */,
 				333723132339333700B26B70 /* MyView.swift */,
-				33DFE17E2334C67D003E9358 /* Main.storyboard */,
-				33DFE1812334C680003E9358 /* Assets.xcassets */,
-				33DFE1832334C680003E9358 /* LaunchScreen.storyboard */,
+				332741F0233C8A7100AFD4D9 /* View */,
+				33DFE17A2334C67D003E9358 /* AppDelegate.swift */,
 				33DFE1862334C680003E9358 /* Info.plist */,
+				332741F2233D444000AFD4D9 /* Assets.xcassets */,
 			);
 			path = CreatingViews;
 			sourceTree = "<group>";
@@ -129,7 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33DFE1852334C680003E9358 /* LaunchScreen.storyboard in Resources */,
-				33DFE1822334C680003E9358 /* Assets.xcassets in Resources */,
+				332741F3233D444100AFD4D9 /* Assets.xcassets in Resources */,
 				33DFE1802334C67D003E9358 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,7 +168,7 @@
 				333723142339333700B26B70 /* MyView.swift in Sources */,
 				33DFE17D2334C67D003E9358 /* ViewController.swift in Sources */,
 				33DFE17B2334C67D003E9358 /* AppDelegate.swift in Sources */,
-				3337230E2337175700B26B70 /* ViewController2.swift in Sources */,
+				3337230E2337175700B26B70 /* GameViewControlle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +317,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63SJACK9D4;
 				INFOPLIST_FILE = CreatingViews/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,7 +336,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 63SJACK9D4;
 				INFOPLIST_FILE = CreatingViews/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
