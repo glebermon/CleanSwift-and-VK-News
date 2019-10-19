@@ -26,7 +26,7 @@ protocol FeedCellSizes {
     var postLabelFrame : CGRect { get }
     var attachmentFrame : CGRect { get }
     
-    var bottomView : CGRect { get }
+    var bottomViewFrame: CGRect { get }
     var totalHeight : CGFloat { get } 
 }
 
@@ -37,7 +37,7 @@ protocol FeedCellPhotoAttachmentViewModel {
 }
 
 class NewsFeedCell: UITableViewCell {
-    
+        
     static let reuseID = "NewsFeedCell"
     
     @IBOutlet weak var cardView: UIView!
@@ -53,14 +53,24 @@ class NewsFeedCell: UITableViewCell {
     @IBOutlet weak var bottomView: UIView!
     
     
+    /*Данный метод для того, чтобы при быстром просмотре ленты ячейки очищались для переиспользования*/
+    override func prepareForReuse() {
+        iconImageView.set(imageURL: nil)
+        postImageView.set(imageURL: nil)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+    
         
         iconImageView.layer.cornerRadius = iconImageView.frame.height / 2
         iconImageView.clipsToBounds = true
         
+        
         cardView.layer.cornerRadius = 10
         cardView.clipsToBounds = true
+        
+        postLabel.textColor = .black
         
         backgroundColor = .clear
         selectionStyle = .none
@@ -80,6 +90,7 @@ class NewsFeedCell: UITableViewCell {
         
         postLabel.frame = viewModel.sizes.postLabelFrame
         postImageView.frame = viewModel.sizes.attachmentFrame
+        bottomView.frame = viewModel.sizes.bottomViewFrame
         
         if let photoAttachement = viewModel.photoAttachment {
             postImageView.set(imageURL: photoAttachement.photoURLString)

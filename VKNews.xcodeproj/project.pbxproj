@@ -34,6 +34,7 @@
 		33DFE17D2334C67D003E9358 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE17C2334C67D003E9358 /* AuthViewController.swift */; };
 		33DFE1852334C680003E9358 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DFE1832334C680003E9358 /* LaunchScreen.storyboard */; };
 		33E25F282359870200472F46 /* NewsFeedCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E25F272359870200472F46 /* NewsFeedCellLayoutCalculator.swift */; };
+		33E25F2A235AEE5500472F46 /* String + Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33E25F29235AEE5500472F46 /* String + Height.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +80,7 @@
 		33DFE1842334C680003E9358 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		33DFE1862334C680003E9358 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		33E25F272359870200472F46 /* NewsFeedCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCellLayoutCalculator.swift; sourceTree = "<group>"; };
+		33E25F29235AEE5500472F46 /* String + Height.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Height.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			children = (
 				3388FA042351BBCE0030F188 /* UIViewController + Storyboard.swift */,
 				332763B22356E7160078D356 /* WebImageView.swift */,
+				33E25F29235AEE5500472F46 /* String + Height.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				3388FA002351B80C0030F188 /* FeedViewController.swift in Sources */,
 				3388FA072351C0180030F188 /* NetworkService.swift in Sources */,
 				3398396C23531CA400641A3C /* NetworkDataFetcher.swift in Sources */,
+				33E25F2A235AEE5500472F46 /* String + Height.swift in Sources */,
 				332763A323537D6B0078D356 /* NewsFeedWorker.swift in Sources */,
 				332763A423537D6B0078D356 /* NewsFeedRouter.swift in Sources */,
 				33DFE17B2334C67D003E9358 /* AppDelegate.swift in Sources */,
