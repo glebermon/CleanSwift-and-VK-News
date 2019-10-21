@@ -14,11 +14,12 @@ struct Sizes : FeedCellSizes {
     var attachmentFrame: CGRect
     var bottomViewFrame: CGRect
     var totalHeight: CGFloat
+    var moreTextButtonFrame: CGRect
     
 }
 
 protocol FeedCellLayoutCalculatorProtocol {
-    func sizes(postText : String?, photoAttachment : FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes
+    func sizes(postText : String?, photoAttachment : FeedCellPhotoAttachmentViewModel?, isFullSizedPost : Bool) -> FeedCellSizes
 }
 
 
@@ -32,7 +33,9 @@ final class NewsFeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     
 
     
-    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes {
+    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModel?, isFullSizedPost : Bool) -> FeedCellSizes {
+        
+        var showMoreTextButton = false
         
         let cardViewWidth = screenWidth - Constants.cardInsets.left - Constants.cardInsets.right
         
@@ -43,13 +46,33 @@ final class NewsFeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         if let text = postText, !text.isEmpty {
             let width = cardViewWidth - Constants.postLabelsInsets.right - Constants.postLabelsInsets.left
-            let height = text.height(width: width, font: Constants.postLabelFont)
+            var height = text.height(width: width, font: Constants.postLabelFont)
+            
+            let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
+            
+            if !isFullSizedPost && height > limitHeight {
+                height = Constants.postLabelFont.lineHeight * Constants.minifiedPostLines
+                showMoreTextButton = true
+            }
+            
             postLabelFrame.size = CGSize(width: width, height: height)
+            
         }
+        
+        // MARK: Работа с moreTextButtonFrame
+        
+        var moreTextButtonSize = CGSize.zero
+        
+        if showMoreTextButton {
+            moreTextButtonSize = Constants.moreTextButtonSize
+        }
+        
+        let moreTextButtonOrigin = CGPoint(x: Constants.moreTextButtonInsets.left, y: postLabelFrame.maxY)
+        let moreTextButtonFrame = CGRect(origin: moreTextButtonOrigin, size: moreTextButtonSize)
         
         // MARK: Работа с attachmentFrame
         
-        let attachementTop = postLabelFrame.size == CGSize.zero ? Constants.postLabelsInsets.top : postLabelFrame.maxY + Constants.postLabelsInsets.bottom
+        let attachementTop = postLabelFrame.size == CGSize.zero ? Constants.postLabelsInsets.top : moreTextButtonFrame.maxY + Constants.postLabelsInsets.bottom
         
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attachementTop),
                                      size: CGSize.zero)
@@ -75,7 +98,8 @@ final class NewsFeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         return Sizes(postLabelFrame: postLabelFrame,
                      attachmentFrame: attachmentFrame,
                      bottomViewFrame: bottomViewFrame,
-                     totalHeight: totalHeight)
+                     totalHeight: totalHeight,
+                     moreTextButtonFrame: moreTextButtonFrame)
     }
     
 }

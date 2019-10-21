@@ -8,15 +8,20 @@
 
 import UIKit
 
+protocol NewsFeedCodeCellDelegate : class {
+    func revealPost(for cell : NewsFeedCodeCell)
+}
+
 class NewsFeedCodeCell: UITableViewCell {
     
     static let reuseID = "NewsFeedCodeCell"
     
+    weak var delegate : NewsFeedCodeCellDelegate?
     
     // first layer
     let cardView : UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -25,7 +30,6 @@ class NewsFeedCodeCell: UITableViewCell {
     let topView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         return view
     }()
     
@@ -33,9 +37,19 @@ class NewsFeedCodeCell: UITableViewCell {
        let label = UILabel()
         label.numberOfLines = 0
         label.font = Constants.postLabelFont
-        label.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
         label.textColor = #colorLiteral(red: 0.1725490196, green: 0.1764705882, blue: 0.1803921569, alpha: 1)
         return label
+    }()
+    
+    let moreTextButton : UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.lightGray, for: .highlighted)
+        button.contentHorizontalAlignment = .left
+        button.contentVerticalAlignment = .center
+        button.setTitle("View more", for: .normal)
+        return button
     }()
     
     let postImageView : WebImageView = {
@@ -46,7 +60,6 @@ class NewsFeedCodeCell: UITableViewCell {
     
     let bottomView : UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         return view
     }()
     
@@ -54,7 +67,6 @@ class NewsFeedCodeCell: UITableViewCell {
     
     let iconImageView : WebImageView = {
         let icon = WebImageView()
-        icon.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         icon.translatesAutoresizingMaskIntoConstraints = false
         
         return icon
@@ -66,7 +78,6 @@ class NewsFeedCodeCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
         label.textColor = #colorLiteral(red: 0.1725490196, green: 0.1764705882, blue: 0.1803921569, alpha: 1)
-        label.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         return label
     }()
     
@@ -75,7 +86,6 @@ class NewsFeedCodeCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = #colorLiteral(red: 0.5058823529, green: 0.5294117647, blue: 0.6, alpha: 1)
-        label.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
         return label
     }()
     
@@ -84,28 +94,24 @@ class NewsFeedCodeCell: UITableViewCell {
     let likesView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         return view
     }()
     
     let commentsView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         return view
     }()
     
     let sharesView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         return view
     }()
     
     let viewsView : UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         return view
     }()
     
@@ -143,6 +149,7 @@ class NewsFeedCodeCell: UITableViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.textColor = #colorLiteral(red: 0.5058823529, green: 0.5490196078, blue: 0.6, alpha: 1)
+        lbl.text = "457K" // для теста. по завершении можно убрать
         lbl.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         lbl.lineBreakMode = .byClipping
         return lbl
@@ -175,40 +182,55 @@ class NewsFeedCodeCell: UITableViewCell {
         return lbl
     }()
     
-    /*  @IBOutlet weak var cardView: UIView!
-       @IBOutlet weak var iconImageView: WebImageView!
-       @IBOutlet weak var nameLabel: UILabel!
-       @IBOutlet weak var dateLabel: UILabel!
-       @IBOutlet weak var postLabel: UILabel!
-       @IBOutlet weak var postImageView: WebImageView!
-       @IBOutlet weak var likesLabel: UILabel!
-       @IBOutlet weak var commentsLabel: UILabel!
-       @IBOutlet weak var sharesLabel: UILabel!
-       @IBOutlet weak var viewsLabel: UILabel!
-       @IBOutlet weak var bottomView: UIView! */
-    
-    
+    override func prepareForReuse() {
+        iconImageView.set(imageURL: nil)
+        postImageView.set(imageURL: nil)
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
             
-        backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        backgroundColor = .clear
+        selectionStyle = .none
+        
+        cardView.layer.cornerRadius = 10
+        cardView.clipsToBounds = true
+        
+        iconImageView.layer.cornerRadius = Constants.topViewHeight / 2
+        iconImageView.clipsToBounds = true
+        
+        moreTextButton.addTarget(self, action: #selector(moreTextButtonTouch), for: .touchUpInside)
         
         overlayFirstLayer() // first layer
         overlaySecondLayer() // second layer
         overlayThidLayerOnTopView() // third layer on topView
-        overlayThidLayerOnBottomView() // third layer on bottomView
+        overlayThirdLayerOnBottomView() // third layer on bottomView
+        overlayFourthLayerOnBottomViewViews() // fourth layer on bottomViewViews
         
     }
     
+    @objc func moreTextButtonTouch() {
+        delegate?.revealPost(for: self)
+    }
+    
     func set(viewModel : FeedCellViewModel) {
+        
+        iconImageView.set(imageURL: viewModel.iconURLString)
+        nameLabel.text = viewModel.name
+        dateLabel.text = viewModel.date
+        postLabel.text = viewModel.text
+        likesLabel.text = viewModel.likes
+        commentsLabel.text = viewModel.comments
+        sharesLabel.text = viewModel.shares
+        viewsLabel.text = viewModel.views
 
         postLabel.frame = viewModel.sizes.postLabelFrame
         postImageView.frame = viewModel.sizes.attachmentFrame
         bottomView.frame = viewModel.sizes.bottomViewFrame
+        moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
         if let photoAttachement = viewModel.photoAttachment {
-//            postImageView.set(imageURL: photoAttachement.photoURLString)
+            postImageView.set(imageURL: photoAttachement.photoURLString)
             postImageView.isHidden = false
         } else {
             postImageView.isHidden = true
@@ -216,7 +238,42 @@ class NewsFeedCodeCell: UITableViewCell {
         
     }
     
-    private func overlayThidLayerOnBottomView() {
+    private func overlayFourthLayerOnBottomViewViews() {
+        
+        likesView.addSubview(likesImage)
+        likesView.addSubview(likesLabel)
+        helpInFourthLayer(view : likesView, img : likesImage, lbl: likesLabel)
+        
+        commentsView.addSubview(commentsImage)
+        commentsView.addSubview(commentsLabel)
+        helpInFourthLayer(view : commentsView, img : commentsImage, lbl: commentsLabel)
+        
+        sharesView.addSubview(sharesImage)
+        sharesView.addSubview(sharesLabel)
+        helpInFourthLayer(view : sharesView, img : sharesImage, lbl: sharesLabel)
+        
+        viewsView.addSubview(viewsImage)
+        viewsView.addSubview(viewsLabel)
+        helpInFourthLayer(view : viewsView, img : viewsImage, lbl: viewsLabel )
+        
+    }
+    
+    private func helpInFourthLayer(view : UIView, img : UIImageView, lbl: UILabel) {
+        
+        // imageView Constraints
+        img.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        img.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        img.widthAnchor.constraint(equalToConstant: Constants.bottomViewViewsIconSize).isActive = true
+        img.heightAnchor.constraint(equalToConstant: Constants.bottomViewViewsIconSize).isActive = true
+        
+        // label Constraints
+        lbl.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        lbl.leadingAnchor.constraint(equalTo: img.trailingAnchor, constant: 4).isActive = true
+        lbl.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+    }
+    
+    private func overlayThirdLayerOnBottomView() {
         
         bottomView.addSubview(likesView)
         bottomView.addSubview(commentsView)
@@ -294,6 +351,7 @@ class NewsFeedCodeCell: UITableViewCell {
         
         cardView.addSubview(topView)
         cardView.addSubview(postLabel)
+        cardView.addSubview(moreTextButton)
         cardView.addSubview(postImageView)
         cardView.addSubview(bottomView)
         
@@ -304,12 +362,19 @@ class NewsFeedCodeCell: UITableViewCell {
         topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
         
         // topView constraints
+        //не нужны - расчитываются автоматически
         
         // postLabel constraints
+        //не нужны - расчитываются автоматически
+        
+        // moreTextButton constraints
+        //не нужны - расчитываются автоматически
         
         // postImageView constraints
+        //не нужны - расчитываются автоматически
         
         // bottomView constraints
+        //не нужны - расчитываются автоматически
     }
     
     private func overlayFirstLayer() {
