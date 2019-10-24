@@ -18,6 +18,7 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
   var router: (NSObjectProtocol & NewsFeedRoutingLogic)?
     
     private var feedViewModel = FeedViewModel.init(cells: [])
+    private var titleView = TitleView()
     
     
     @IBOutlet weak var table: UITableView!
@@ -54,6 +55,11 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
     interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getNewsFeed)
   }
+    
+    private func setupTopBars() {
+        self.navigationController?.hidesBarsOnSwipe = true
+        
+    }
   
   func displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData) {
     switch viewModel {

@@ -52,6 +52,8 @@ class NewsFeedCodeCell: UITableViewCell {
         return button
     }()
     
+    let gallaryCollectionView = GallaryCollectionView()
+    
     let postImageView : WebImageView = {
         let image = WebImageView()
         image.backgroundColor = #colorLiteral(red: 0.8901960784, green: 0.8980392157, blue: 0.9098039216, alpha: 1)
@@ -225,17 +227,32 @@ class NewsFeedCodeCell: UITableViewCell {
         viewsLabel.text = viewModel.views
 
         postLabel.frame = viewModel.sizes.postLabelFrame
-        postImageView.frame = viewModel.sizes.attachmentFrame
+        
         bottomView.frame = viewModel.sizes.bottomViewFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
-        if let photoAttachement = viewModel.photoAttachment {
+//        if let photoAttachement = viewModel.photoAttachment {
+//            postImageView.set(imageURL: photoAttachement.photoURLString)
+//            postImageView.isHidden = false
+//        } else {
+//            postImageView.isHidden = true
+//        }
+        
+        if let photoAttachement = viewModel.photoAttachments.first, viewModel.photoAttachments.count == 1 {
             postImageView.set(imageURL: photoAttachement.photoURLString)
             postImageView.isHidden = false
+            gallaryCollectionView.isHidden = true
+            postImageView.frame = viewModel.sizes.attachmentFrame
+        } else if viewModel.photoAttachments.count > 1 {
+            gallaryCollectionView.frame = viewModel.sizes.attachmentFrame
+            postImageView.isHidden = true
+            gallaryCollectionView.isHidden = false
+            gallaryCollectionView.set(photos: viewModel.photoAttachments)
+        
         } else {
             postImageView.isHidden = true
+            gallaryCollectionView.isHidden = true
         }
-        
     }
     
     private func overlayFourthLayerOnBottomViewViews() {
@@ -352,6 +369,7 @@ class NewsFeedCodeCell: UITableViewCell {
         cardView.addSubview(topView)
         cardView.addSubview(postLabel)
         cardView.addSubview(moreTextButton)
+        cardView.addSubview(gallaryCollectionView)
         cardView.addSubview(postImageView)
         cardView.addSubview(bottomView)
         

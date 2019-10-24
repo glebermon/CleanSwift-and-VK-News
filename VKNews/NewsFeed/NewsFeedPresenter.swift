@@ -42,14 +42,15 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
     private func cellViewModel(from feedItem : FeedItem, profiles : [Profile], groups : [Group], revealedPostIds : [Int]) -> FeedViewModel.Cell {
         
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
-        let photoAttachment = self.photoAttachmment(feedItem: feedItem)
+//        let photoAttachment = self.photoAttachmment(feedItem: feedItem) // для одной фотографии
+        let photoAttachments = self.photoAttachments(feedItem: feedItem)
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormater.string(from: date)
         let isFullSized = revealedPostIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
 //        let isFullSized = revealedPostIds.contains(feedItem.postId)
-        let sizes = feedCellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment, isFullSizedPost: isFullSized)
+        let sizes = feedCellLayoutCalculator.sizes(postText: feedItem.text, photoAttachments: photoAttachments, isFullSizedPost: isFullSized)
         
         return FeedViewModel.Cell.init(postId: feedItem.postId,
                                        iconURLString: profile.photo,
@@ -60,8 +61,8 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
                                        comments: String(feedItem.comments?.count ?? 0),
                                        shares: String(feedItem.reposts?.count ?? 0),
                                        views: String(feedItem.views?.count ?? 0),
-                                       photoAttachment: photoAttachment,
-                                       sizes: sizes)
+                                       sizes: sizes,
+                                       photoAttachments: photoAttachments)
     }
     
     private func profile(for sourceID : Int, profiles : [Profile], groups : [Group]) -> ProfileRepresentable {
@@ -73,6 +74,7 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
         return profileRepresentable!
     }
     
+    // данная функция для получения только одной фотографии
     private func photoAttachmment(feedItem : FeedItem) -> FeedViewModel.FeedCellPhotoAttachment? {
         guard let photos = feedItem.attachments?.compactMap({ (attachment) in
             attachment.photo
@@ -82,6 +84,18 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
         return FeedViewModel.FeedCellPhotoAttachment.init(photoURLString: firstPhoto.srcBIG,
                                                           width: firstPhoto.width,
                                                           height: firstPhoto.height)
+    }
+    
+    // функция, чтобы достать массив фотографий
+    private func photoAttachments(feedItem : FeedItem) -> [FeedViewModel.FeedCellPhotoAttachment] {
+        guard let attachments = feedItem.attachments else { return [] }
+        
+        return attachments.compactMap { (attachment) -> FeedViewModel.FeedCellPhotoAttachment? in
+            guard let photos = attachment.photo else { return nil  }
+            return FeedViewModel.FeedCellPhotoAttachment.init(photoURLString: photos.srcBIG,
+                                                              width: photos.width,
+                                                              height: photos.height)
+        }
     }
   
 }
