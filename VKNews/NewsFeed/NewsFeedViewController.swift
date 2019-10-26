@@ -19,6 +19,12 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     
     private var feedViewModel = FeedViewModel.init(cells: [])
     private var titleView = TitleView()
+    private var refreshControl : UIRefreshControl = {
+       let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }()
+    
     
     
     @IBOutlet weak var table: UITableView!
@@ -47,18 +53,37 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     super.viewDidLoad()
     
     setup()
-    
-    table.register(UINib(nibName: "NewsFeedCell", bundle: nil), forCellReuseIdentifier: NewsFeedCell.reuseID)
-    table.register(NewsFeedCodeCell.self, forCellReuseIdentifier: "NewsFeedCodeCell")
-    table.separatorStyle = .none
-    table.backgroundColor = .clear
+    setupTable()
+    setupTopBars()
+ 
     view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
     interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getNewsFeed)
+    interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getUser)
+    setupTopBars()
   }
+    
+    private func setupTable() {
+        let topInset : CGFloat = 8
+        table.contentInset.top = topInset
+        
+        table.register(UINib(nibName: "NewsFeedCell", bundle: nil), forCellReuseIdentifier: NewsFeedCell.reuseID)
+        table.register(NewsFeedCodeCell.self, forCellReuseIdentifier: "NewsFeedCodeCell")
+        
+        table.separatorStyle = .none
+        table.backgroundColor = .clear
+        
+        table.addSubview(refreshControl)
+        
+    }
     
     private func setupTopBars() {
         self.navigationController?.hidesBarsOnSwipe = true
-        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationItem.titleView = titleView
+    }
+    
+    @objc private func refresh() {
+        interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getNewsFeed)
     }
   
   func displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData) {
@@ -67,8 +92,17 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     case .displayNewsFeed(let feedViewModel):
         self.feedViewModel = feedViewModel
         table.reloadData()
+        refreshControl.endRefreshing()
+    case .displayUser(let userViewModel):
+        titleView.set(userViewModel: userViewModel)
     }
   }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 1.1 {
+            print("!23")
+        }
+    }
     
     func revealPost(for cell: NewsFeedCodeCell) {
         print("54321")

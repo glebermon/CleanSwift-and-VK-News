@@ -33,6 +33,7 @@ class NewsFeedCodeCell: UITableViewCell {
         return view
     }()
     
+    /*
     let postLabel : UILabel = {
        let label = UILabel()
         label.numberOfLines = 0
@@ -40,6 +41,23 @@ class NewsFeedCodeCell: UITableViewCell {
         label.textColor = #colorLiteral(red: 0.1725490196, green: 0.1764705882, blue: 0.1803921569, alpha: 1)
         return label
     }()
+    */
+    
+    let postLabel : UITextView = {
+       let txtView = UITextView()
+        txtView.font = Constants.postLabelFont
+        txtView.isScrollEnabled = false
+        txtView.isSelectable = true
+        txtView.isUserInteractionEnabled = true
+        txtView.isEditable = false
+        txtView.dataDetectorTypes = UIDataDetectorTypes.all
+        
+        let padding = txtView.textContainer.lineFragmentPadding
+        txtView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        
+        return txtView
+    }()
+    
     
     let moreTextButton : UIButton = {
         let button = UIButton()

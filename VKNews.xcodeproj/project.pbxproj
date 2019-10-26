@@ -23,6 +23,7 @@
 		332763AF235448B60078D356 /* NewsFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 332763AE235448B60078D356 /* NewsFeedCell.xib */; };
 		332763B32356E7160078D356 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332763B22356E7160078D356 /* WebImageView.swift */; };
 		335014B223616FB40097BA42 /* InsertableTextFiel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014B123616FB40097BA42 /* InsertableTextFiel.swift */; };
+		335014B42362106F0097BA42 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014B32362106F0097BA42 /* UserResponse.swift */; };
 		3388F9F52351A4BE0030F188 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */; };
 		3388F9F62351A4BE0030F188 /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3388F9FA2351AB180030F188 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388F9F92351AB180030F188 /* AuthService.swift */; };
@@ -76,6 +77,7 @@
 		332763AE235448B60078D356 /* NewsFeedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsFeedCell.xib; sourceTree = "<group>"; };
 		332763B22356E7160078D356 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		335014B123616FB40097BA42 /* InsertableTextFiel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextFiel.swift; sourceTree = "<group>"; };
+		335014B32362106F0097BA42 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
 		3388F9F92351AB180030F188 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		3388F9FC2351AF910030F188 /* AuthViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AuthViewController.storyboard; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				3388FA0F235315270030F188 /* FeedResponse.swift */,
+				335014B32362106F0097BA42 /* UserResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				335014B223616FB40097BA42 /* InsertableTextFiel.swift in Sources */,
 				33E25F282359870200472F46 /* NewsFeedCellLayoutCalculator.swift in Sources */,
 				3388FA052351BBCE0030F188 /* UIViewController + Storyboard.swift in Sources */,
+				335014B42362106F0097BA42 /* UserResponse.swift in Sources */,
 				332763A723537D6B0078D356 /* NewsFeedInteractor.swift in Sources */,
 				332038872360E5E40007159A /* TitleView.swift in Sources */,
 				3388F9FA2351AB180030F188 /* AuthService.swift in Sources */,

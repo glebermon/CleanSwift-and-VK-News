@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TitleViewViewModel {
+    var photoUrlString : String? { get }
+}
+
 class TitleView : UIView {
     
     private var myTextField = InsertableTextFiel()
@@ -26,7 +30,11 @@ class TitleView : UIView {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(myTextField)
         addSubview(myAvatarView)
-        
+        makeConstraints()
+    }
+    
+    func set(userViewModel : TitleViewViewModel) {
+        myAvatarView.set(imageURL: userViewModel.photoUrlString)
     }
     
     private func makeConstraints() {

@@ -36,6 +36,9 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
             
             let feedViewModel = FeedViewModel.init(cells: cells)
             viewController?.displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData.displayNewsFeed(feedViewModel: feedViewModel))
+        case .presentUserInfo(let user):
+            let userViewModel = UserViewModel.init(photoUrlString: user?.photo100)
+            viewController?.displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData.displayUser(userViewModel: userViewModel))
         }
     }
     
@@ -52,17 +55,32 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
 //        let isFullSized = revealedPostIds.contains(feedItem.postId)
         let sizes = feedCellLayoutCalculator.sizes(postText: feedItem.text, photoAttachments: photoAttachments, isFullSizedPost: isFullSized)
         
+        let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "/b")
+        
         return FeedViewModel.Cell.init(postId: feedItem.postId,
                                        iconURLString: profile.photo,
                                        name: profile.name,
                                        date: dateTitle,
-                                       text: feedItem.text,
-                                       likes: String(feedItem.likes?.count ?? 0),
-                                       comments: String(feedItem.comments?.count ?? 0),
-                                       shares: String(feedItem.reposts?.count ?? 0),
-                                       views: String(feedItem.views?.count ?? 0),
+                                       text: postText,
+                                       likes: formattedCounter(counter: feedItem.likes?.count),
+                                       comments: formattedCounter(counter: feedItem.comments?.count),
+                                       shares: formattedCounter(counter: feedItem.reposts?.count),
+                                       views: formattedCounter(counter: feedItem.views?.count),
                                        sizes: sizes,
                                        photoAttachments: photoAttachments)
+    }
+    
+    private func formattedCounter (counter : Int?) -> String? {
+        guard let counter = counter, counter > 0 else { return nil }
+        var counterSrting = String(counter)
+        
+        if 4...6 ~= counterSrting.count {
+            counterSrting = String(counterSrting.dropLast(3)) + "K"
+        } else if counterSrting.count > 6 {
+            counterSrting = String(counterSrting.dropLast(6)) + "М"
+        }
+        
+        return counterSrting
     }
     
     private func profile(for sourceID : Int, profiles : [Profile], groups : [Group]) -> ProfileRepresentable {
@@ -97,5 +115,4 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
                                                               height: photos.height)
         }
     }
-  
-}
+  }
