@@ -24,6 +24,9 @@
 		332763B32356E7160078D356 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332763B22356E7160078D356 /* WebImageView.swift */; };
 		335014B223616FB40097BA42 /* InsertableTextFiel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014B123616FB40097BA42 /* InsertableTextFiel.swift */; };
 		335014B42362106F0097BA42 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014B32362106F0097BA42 /* UserResponse.swift */; };
+		335014B7236487A60097BA42 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014B6236487A60097BA42 /* FooterView.swift */; };
+		335014B92364AFB80097BA42 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 335014B82364AFB80097BA42 /* Localizable.stringsdict */; };
+		335014BB2364BC030097BA42 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335014BA2364BC030097BA42 /* GradientView.swift */; };
 		3388F9F52351A4BE0030F188 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */; };
 		3388F9F62351A4BE0030F188 /* VKSdkFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3388F9FA2351AB180030F188 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388F9F92351AB180030F188 /* AuthService.swift */; };
@@ -78,6 +81,9 @@
 		332763B22356E7160078D356 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		335014B123616FB40097BA42 /* InsertableTextFiel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertableTextFiel.swift; sourceTree = "<group>"; };
 		335014B32362106F0097BA42 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		335014B6236487A60097BA42 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		335014B82364AFB80097BA42 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		335014BA2364BC030097BA42 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3388F9F42351A4BE0030F188 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
 		3388F9F92351AB180030F188 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		3388F9FC2351AF910030F188 /* AuthViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AuthViewController.storyboard; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 		3327639A23537D0C0078D356 /* NewsFeed */ = {
 			isa = PBXGroup;
 			children = (
+				335014B5236487890097BA42 /* FooterView */,
 				332038852360E1650007159A /* TitleView */,
 				330956DC235D838F007DD969 /* GallaryView */,
 				332763AB235448190078D356 /* Cell */,
@@ -168,6 +175,23 @@
 				33E25F2F235BB12200472F46 /* Constants.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		335014B5236487890097BA42 /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				335014B6236487A60097BA42 /* FooterView.swift */,
+			);
+			path = FooterView;
+			sourceTree = "<group>";
+		};
+		335014BC2364C1E30097BA42 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				332763B22356E7160078D356 /* WebImageView.swift */,
+				335014BA2364BC030097BA42 /* GradientView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3388F9F32351A4BE0030F188 /* Frameworks */ = {
@@ -203,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				3388FA042351BBCE0030F188 /* UIViewController + Storyboard.swift */,
-				332763B22356E7160078D356 /* WebImageView.swift */,
 				33E25F29235AEE5500472F46 /* String + Height.swift */,
 				33E25F2D235B735D00472F46 /* Constraints.swift */,
 			);
@@ -245,8 +268,10 @@
 				3388F9FB2351AB3D0030F188 /* Services */,
 				332741F0233C8A7100AFD4D9 /* Auth */,
 				3327639A23537D0C0078D356 /* NewsFeed */,
+				335014BC2364C1E30097BA42 /* Views */,
 				3388FA032351BB060030F188 /* Helpers */,
 				33DFE1862334C680003E9358 /* Info.plist */,
+				335014B82364AFB80097BA42 /* Localizable.stringsdict */,
 				33DFE1832334C680003E9358 /* LaunchScreen.storyboard */,
 				332741F2233D444000AFD4D9 /* Assets.xcassets */,
 			);
@@ -318,6 +343,7 @@
 				332763AF235448B60078D356 /* NewsFeedCell.xib in Resources */,
 				332763AA2353C6350078D356 /* NewsFeedViewController.storyboard in Resources */,
 				332741F3233D444100AFD4D9 /* Assets.xcassets in Resources */,
+				335014B92364AFB80097BA42 /* Localizable.stringsdict in Resources */,
 				3388FA0B2351CA7F0030F188 /* Default-568h@2x.png in Resources */,
 				3388FA022351B8160030F188 /* FeedViewController.storyboard in Resources */,
 			);
@@ -353,6 +379,7 @@
 			files = (
 				330956DE235D83C2007DD969 /* GallaryCollectionView.swift in Sources */,
 				3388FA10235315280030F188 /* FeedResponse.swift in Sources */,
+				335014BB2364BC030097BA42 /* GradientView.swift in Sources */,
 				33E25F30235BB12200472F46 /* Constants.swift in Sources */,
 				33E25F2E235B735D00472F46 /* Constraints.swift in Sources */,
 				332763B32356E7160078D356 /* WebImageView.swift in Sources */,
@@ -375,6 +402,7 @@
 				332763A323537D6B0078D356 /* NewsFeedWorker.swift in Sources */,
 				332763A423537D6B0078D356 /* NewsFeedRouter.swift in Sources */,
 				33DFE17B2334C67D003E9358 /* AppDelegate.swift in Sources */,
+				335014B7236487A60097BA42 /* FooterView.swift in Sources */,
 				3388FA092351C6780030F188 /* API.swift in Sources */,
 				332763A523537D6B0078D356 /* NewsFeedModels.swift in Sources */,
 				332763AD235448320078D356 /* NewsFeedCell.swift in Sources */,

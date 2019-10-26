@@ -17,8 +17,10 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
   var interactor: NewsFeedBusinessLogic?
   var router: (NSObjectProtocol & NewsFeedRoutingLogic)?
     
-    private var feedViewModel = FeedViewModel.init(cells: [])
+    private var feedViewModel = FeedViewModel.init(cells: [], footerTitle: nil)
     private var titleView = TitleView()
+    private lazy var footerView = FooterView()
+    
     private var refreshControl : UIRefreshControl = {
        let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -56,7 +58,6 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     setupTable()
     setupTopBars()
  
-    view.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
     interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getNewsFeed)
     interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getUser)
     setupTopBars()
@@ -73,10 +74,19 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
         table.backgroundColor = .clear
         
         table.addSubview(refreshControl)
+        table.tableFooterView = footerView
         
     }
     
     private func setupTopBars() {
+        let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
+        topBar.backgroundColor = .white
+        topBar.layer.shadowColor = UIColor.black.cgColor
+        topBar.layer.shadowOpacity = 0.3
+        topBar.layer.shadowOffset = CGSize.zero
+        topBar.layer.shadowRadius = 8
+        self.view.addSubview(topBar)
+        
         self.navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationItem.titleView = titleView
@@ -91,16 +101,19 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
 
     case .displayNewsFeed(let feedViewModel):
         self.feedViewModel = feedViewModel
+        footerView.setTitle(feedViewModel.footerTitle)
         table.reloadData()
         refreshControl.endRefreshing()
     case .displayUser(let userViewModel):
         titleView.set(userViewModel: userViewModel)
+    case .displayFooterLoader:
+        footerView.showLoader()
     }
   }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y > scrollView.contentSize.height / 1.1 {
-            print("!23")
+            interactor?.makeRequest(request: NewsFeed.Model.Request.RequestType.getNextBatch)
         }
     }
     
@@ -142,7 +155,5 @@ extension NewsFeedViewController : UITableViewDelegate, UITableViewDataSource {
         return cellViewModel.sizes.totalHeight
 //        return 212
         
-    }
-    
-    
+    }    
 }
