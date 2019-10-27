@@ -21,7 +21,7 @@ class GallaryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
         delegate = self
         dataSource = self
         
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "backgroundColor")
         
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false

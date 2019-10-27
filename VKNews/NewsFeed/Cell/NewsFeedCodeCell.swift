@@ -21,7 +21,7 @@ class NewsFeedCodeCell: UITableViewCell {
     // first layer
     let cardView : UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")//#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -51,6 +51,7 @@ class NewsFeedCodeCell: UITableViewCell {
         txtView.isUserInteractionEnabled = true
         txtView.isEditable = false
         txtView.dataDetectorTypes = UIDataDetectorTypes.all
+        txtView.backgroundColor = UIColor(named: "backgroundColor")
         
         let padding = txtView.textContainer.lineFragmentPadding
         txtView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
@@ -62,7 +63,7 @@ class NewsFeedCodeCell: UITableViewCell {
     let moreTextButton : UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor(named: "buttonsColor"), for: .normal)
         button.setTitleColor(.lightGray, for: .highlighted)
         button.contentHorizontalAlignment = .left
         button.contentVerticalAlignment = .center
@@ -97,7 +98,7 @@ class NewsFeedCodeCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
-        label.textColor = #colorLiteral(red: 0.1725490196, green: 0.1764705882, blue: 0.1803921569, alpha: 1)
+        label.textColor = UIColor(named: "textColor")
         return label
     }()
     

@@ -13,7 +13,7 @@ class InsertableTextFiel: UITextField {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        backgroundColor = UIColor(named: "backgroundColor")
         placeholder = "Поиск"
         font = UIFont.systemFont(ofSize: 14)
         clearButtonMode = .whileEditing

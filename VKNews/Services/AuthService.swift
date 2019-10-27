@@ -33,7 +33,6 @@ final class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     override init() {
         vkSdk = VKSdk.initialize(withAppId: appID)
         super.init()
-        print("init")
         vkSdk.register(self)
         vkSdk.uiDelegate = self
     }

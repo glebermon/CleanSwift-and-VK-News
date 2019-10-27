@@ -80,7 +80,7 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     
     private func setupTopBars() {
         let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
-        topBar.backgroundColor = .white
+        topBar.backgroundColor = UIColor(named: "backgroundColor")
         topBar.layer.shadowColor = UIColor.black.cgColor
         topBar.layer.shadowOpacity = 0.3
         topBar.layer.shadowOffset = CGSize.zero

@@ -26,7 +26,7 @@ struct NetworkDataFetcher : DataFetcher {
     
     func getFeed(nextBatchFrom : String?, response: @escaping (FeedResponse?) -> Void) {
         
-        var params = ["filters" : "post, photo"]
+        var params = ["filters" : "post,photo"]
         params["start_from"] = nextBatchFrom
         networking.request(path: API.newsFeed, params: params) { (data, error) in
             if let error = error {
