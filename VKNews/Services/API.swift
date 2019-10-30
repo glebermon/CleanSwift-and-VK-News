@@ -16,4 +16,7 @@ struct API {
     
     static let newsFeed = "/method/newsfeed.get"
     static let user = "/method/users.get"
+    
+    
+    // photos.getWallUploadServer // получение сервера для загрузки фотов на стену пользователя
 }

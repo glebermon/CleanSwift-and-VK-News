@@ -33,10 +33,16 @@ class NewsFeedPresenter: NewsFeedPresentationLogic {
             let cells = feed.items.map { (feedItem) in
                 cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealedPostIds: revealedPostIds)
             }
+            var cells2 = [FeedViewModel.Cell]()
+            for i in cells {
+                if i.photoAttachments.count > 0 {
+                    cells2.append(i)
+                }
+            }
             
             
-            let footerTitle = String.localizedStringWithFormat(NSLocalizedString("Newsfeed cells count", comment: ""), cells.count)
-            let feedViewModel = FeedViewModel.init(cells: cells, footerTitle: footerTitle)
+            let footerTitle = String.localizedStringWithFormat(NSLocalizedString("Newsfeed cells count", comment: ""), cells2.count)
+            let feedViewModel = FeedViewModel.init(cells: cells2, footerTitle: footerTitle)
             viewController?.displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData.displayNewsFeed(feedViewModel: feedViewModel))
         case .presentUserInfo(let user):
             let userViewModel = UserViewModel.init(photoUrlString: user?.photo100)

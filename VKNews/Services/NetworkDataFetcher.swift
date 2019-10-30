@@ -27,16 +27,16 @@ struct NetworkDataFetcher : DataFetcher {
     func getFeed(nextBatchFrom : String?, response: @escaping (FeedResponse?) -> Void) {
         
         var params = ["filters" : "post,photo"]
+        params["source_ids"] = "friends, 155428594"
         params["start_from"] = nextBatchFrom
         networking.request(path: API.newsFeed, params: params) { (data, error) in
             if let error = error {
                 print("Error received requesting data: \(error.localizedDescription)")
                 response(nil)
             }
-            
             let decoded = self.decodeJSON(type: FeedResponseWrapped.self, from: data)
-            response(decoded?.response)
             
+            response(decoded?.response)
         }
     }
     
@@ -63,5 +63,4 @@ struct NetworkDataFetcher : DataFetcher {
         return response
         
     }
-    
 }

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CKI-ZN-EW6">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--News-->
+        <scene sceneID="CMY-a5-HMe">
+            <objects>
+                <viewController id="qcW-wt-iym" customClass="NewsFeedViewController" customModule="VKNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g14-5m-iJa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgA-kI-9CR" userLabel="backgroundView" customClass="GradientView" customModule="VKNews" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" red="1" green="0.55294117647058827" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" red="1" green="0.81568627450980391" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tFP-0c-EQb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="qcW-wt-iym" id="r9n-A9-NqO"/>
+                                    <outlet property="delegate" destination="qcW-wt-iym" id="olO-vA-NoL"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vgA-kI-9CR" firstAttribute="leading" secondItem="xbZ-Q1-xt7" secondAttribute="leading" id="29t-86-YTe"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="bottom" secondItem="tFP-0c-EQb" secondAttribute="bottom" id="CoI-oF-HaW"/>
+                            <constraint firstItem="tFP-0c-EQb" firstAttribute="leading" secondItem="xbZ-Q1-xt7" secondAttribute="leading" id="Gk9-fg-fmu"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="top" secondItem="tFP-0c-EQb" secondAttribute="top" constant="88" id="I3g-Yr-lJZ"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="trailing" secondItem="tFP-0c-EQb" secondAttribute="trailing" id="NQs-Sx-smh"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="top" secondItem="vgA-kI-9CR" secondAttribute="top" constant="88" id="Uao-pk-urQ"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="trailing" secondItem="vgA-kI-9CR" secondAttribute="trailing" id="W6d-dN-LNf"/>
+                            <constraint firstItem="xbZ-Q1-xt7" firstAttribute="bottom" secondItem="vgA-kI-9CR" secondAttribute="bottom" id="eFz-sp-zou"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xbZ-Q1-xt7"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="News" image="doc.text.magnifyingglass" catalog="system" selectedImage="doc.text.magnifyingglass" id="dbc-fc-yx2"/>
+                    <navigationItem key="navigationItem" id="J92-wH-5DQ"/>
+                    <connections>
+                        <outlet property="table" destination="tFP-0c-EQb" id="iPZ-j2-r4U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jcw-zR-K5q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="-376"/>
+        </scene>
+        <!--Photo-->
+        <scene sceneID="hj7-Jk-Gj3">
+            <objects>
+                <viewController id="kD7-GN-Ffa" customClass="CameraViewController" customModule="VKNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zhR-Mg-r28">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ja6-C6-5qY"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Photo" image="camera.fill" catalog="system" selectedImage="camera.fill" id="8Ta-A1-Owp"/>
+                    <navigationItem key="navigationItem" id="QF0-yp-E55"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NKm-cw-khZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2054" y="384"/>
+        </scene>
+        <!--News Feed Tab Bar View Controller-->
+        <scene sceneID="Lro-h5-9c5">
+            <objects>
+                <tabBarController id="CKI-ZN-EW6" customClass="NewsFeedTabBarViewController" customModule="VKNews" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y1c-gY-9XR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="nVS-63-Mrm" kind="relationship" relationship="viewControllers" id="SLQ-Ia-mbH"/>
+                        <segue destination="4wW-8Z-dYI" kind="relationship" relationship="viewControllers" id="PFi-pc-7Hu"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z1h-mU-DcA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="301" y="30"/>
+        </scene>
+        <!--News-->
+        <scene sceneID="jVe-4o-jRK">
+            <objects>
+                <navigationController id="nVS-63-Mrm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="News" id="0E2-wG-bQC"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pGR-Mq-fHP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="qcW-wt-iym" kind="relationship" relationship="rootViewController" id="dKW-Qc-jlQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZ7-jM-hnL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="-376"/>
+        </scene>
+        <!--Camer-->
+        <scene sceneID="XxW-TA-Jbs">
+            <objects>
+                <navigationController id="4wW-8Z-dYI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Camer" id="Wc7-n6-PcW"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xoD-hD-uYj">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="kD7-GN-Ffa" kind="relationship" relationship="rootViewController" id="MZx-i6-5Wk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ocb-xN-RJQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="384"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="camera.fill" catalog="system" width="64" height="48"/>
+        <image name="doc.text.magnifyingglass" catalog="system" width="58" height="64"/>
+    </resources>
+</document>

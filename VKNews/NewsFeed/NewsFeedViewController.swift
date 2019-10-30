@@ -79,17 +79,22 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     }
     
     private func setupTopBars() {
-        let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
-        topBar.backgroundColor = UIColor(named: "backgroundColor")
-        topBar.layer.shadowColor = UIColor.black.cgColor
-        topBar.layer.shadowOpacity = 0.3
-        topBar.layer.shadowOffset = CGSize.zero
-        topBar.layer.shadowRadius = 8
-        self.view.addSubview(topBar)
+//        let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
+//        topBar.backgroundColor = UIColor(named: "backgroundColor")
+//        topBar.layer.shadowColor = UIColor.black.cgColor
+//        topBar.layer.shadowOpacity = 0.3
+//        topBar.layer.shadowOffset = CGSize.zero
+//        topBar.layer.shadowRadius = 8
+//        self.view.addSubview(topBar)
         
-        self.navigationController?.hidesBarsOnSwipe = true
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationItem.titleView = titleView
+//        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationItem.titleView = titleView
+//        self.tabBarController?.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.title = "News"
+        
+        
     }
     
     @objc private func refresh() {
@@ -118,7 +123,6 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic, NewsFeedCo
     }
     
     func revealPost(for cell: NewsFeedCodeCell) {
-        print("54321")
         guard let indexPath = table.indexPath(for: cell) else { return }
         
         let cellViewModel = feedViewModel.cells[indexPath.row]
