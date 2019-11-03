@@ -1,8 +1,8 @@
 //
-//  CameraViewController.swift
+//  testCamera.swift
 //  VKNews
 //
-//  Created by Глеб on 28.10.2019.
+//  Created by Глеб on 01.11.2019.
 //  Copyright © 2019 Глеб. All rights reserved.
 //
 
@@ -12,21 +12,26 @@ import VKSdkFramework
 
 class CameraViewController: UIViewController {
     
-    var previewView : UIView!
-    var boxView:UIView!
-    let myButton: UIButton = UIButton()
-
-    //Camera Capture requiered properties
-    var videoDataOutput: AVCaptureVideoDataOutput!
-    var videoDataOutputQueue: DispatchQueue!
-    var previewLayer:AVCaptureVideoPreviewLayer!
-    var captureDevice : AVCaptureDevice!
-    let session = AVCaptureSession()
-    
-    let navigationControllerMy = UINavigationController()
-    
     let picker = UIImagePickerController()
-    let titleCameraButton = TitleViewCamera()
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchInsideView))
+    
+    var previewView: UIImageView = {
+       let view = UIImageView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleToFill
+        return view
+    }()
+    var cameraView: UIImageView = {
+       let view = UIImageView()
+        view.isUserInteractionEnabled = true
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     let photoImageView : UIImageView = {
         let img = UIImageView()
@@ -34,57 +39,96 @@ class CameraViewController: UIViewController {
         img.backgroundColor = .red
         return img
     }()
+    
+    let imageCamera : UIImageView = {
+       let img = UIImageView()
+//        img.backgroundColor = .blac
+        img.image = UIImage(named: "camera100_2")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        return img
+    }()
+    
+    
+    var captureSession: AVCaptureSession?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .red
+        
         self.tabBarController?.navigationController?.isNavigationBarHidden = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(presentCamera))
         self.navigationItem.title = "Photo"
         
-        setupConstraints()
+        previewView.isUserInteractionEnabled = true
+        previewView.addGestureRecognizer(tapGesture)
+        
+
+        setupConstrints()
+        beginSession()
         setupPicker()
-        
-        
-        /* ================================================================================== */
-        
-        previewView = UIView(frame: CGRect(x: 0,
-                                           y: 0,
-                                           width: UIScreen.main.bounds.size.width,
-                                           height: UIScreen.main.bounds.size.height))
-        previewView.contentMode = UIView.ContentMode.scaleAspectFit
-        view.addSubview(previewView)
-
-        //Add a view on top of the cameras' view
-        boxView = UIView(frame: self.view.frame)
-
-        myButton.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
-        myButton.backgroundColor = UIColor.red
-        myButton.layer.masksToBounds = true
-        myButton.setTitle("press me", for: .normal)
-        myButton.setTitleColor(UIColor.white, for: .normal)
-        myButton.layer.cornerRadius = 20.0
-        myButton.layer.position = CGPoint(x: self.view.frame.width/2, y:200)
-        myButton.addTarget(self, action: #selector(self.onClickMyButton(sender:)), for: .touchUpInside)
-
-        view.addSubview(boxView)
-        view.addSubview(myButton)
-
-        self.setupAVCapture()
-        
-        /* ================================================================================== */
-        
     }
     
-    private func setupConstraints() {
-        view.addSubview(photoImageView)
-        
-        // photoImageView constraints
-        photoImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        photoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        photoImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        photoImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            if cameraView.frame.contains(touch.location(in: imageCamera)) {
+                presentCamera()
+            }
+        }
+    }
+    
+    @objc func presentCamera() {
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func beginSession() {
+        guard let captureDevice = AVCaptureDevice.default(for: AVMediaType.video) else { fatalError("No camera") }
+        do {
+          let input = try AVCaptureDeviceInput(device: captureDevice)
+            captureSession = AVCaptureSession()
+            captureSession?.addInput(input)
 
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            videoPreviewLayer?.frame = view.layer.bounds
+            cameraView.layer.addSublayer(videoPreviewLayer!)
+
+            captureSession?.startRunning()
+        } catch {
+          print(error)
+        }
+    }
+    
+    func setupConstrints() {
+        view.addSubview(previewView)
+        previewView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        previewView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        previewView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        previewView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+
+        previewView.addSubview(cameraView)
+        cameraView.topAnchor.constraint(equalTo: previewView.topAnchor).isActive = true
+        cameraView.leadingAnchor.constraint(equalTo: previewView.leadingAnchor).isActive = true
+        cameraView.trailingAnchor.constraint(equalTo: previewView.trailingAnchor).isActive = true
+        cameraView.bottomAnchor.constraint(equalTo: previewView.bottomAnchor).isActive = true
+        
+        previewView.addSubview(imageCamera)
+        imageCamera.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageCamera.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        imageCamera.centerYAnchor.constraint(equalTo: previewView.centerYAnchor).isActive = true
+        imageCamera.centerXAnchor.constraint(equalTo: previewView.centerXAnchor).isActive = true
+    }
+    
+    override var shouldAutorotate: Bool {
+        if (UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft ||
+        UIDevice.current.orientation == UIDeviceOrientation.landscapeRight ||
+        UIDevice.current.orientation == UIDeviceOrientation.unknown) {
+            return false
+        }
+        else {
+            return true
+        }
     }
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -94,6 +138,24 @@ class CameraViewController: UIViewController {
         picker.dismiss(animated: true, completion: nil)
         
     }
+    
+    @objc func touchInsideView(sender : UITapGestureRecognizer) {
+        if sender.state == .ended {
+            print("1234")
+        }
+        print("Hello")
+    }
+}
+
+
+extension CameraViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private func setupPicker() {
+        picker.delegate = self
+        picker.sourceType = .camera
+        picker.allowsEditing = true
+    }
+    
     
     private func uploadImageToNewsfeed(image : Any?) {
         guard let userId = Int((VKSdk.accessToken()?.userId)!) else { return }
@@ -128,99 +190,5 @@ class CameraViewController: UIViewController {
             })
         }
     }
-    
-    @objc func presentCamera() {
-        present(picker, animated: true, completion: nil)
-    }
-    
-    override var shouldAutorotate: Bool {
-        if (UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft ||
-        UIDevice.current.orientation == UIDeviceOrientation.landscapeRight ||
-        UIDevice.current.orientation == UIDeviceOrientation.unknown) {
-            return false
-        }
-        else {
-            return true
-        }
-    }
-
-    @objc func onClickMyButton(sender: UIButton){
-        print("button pressed")
-    }
-    
 }
 
-extension CameraViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    private func setupPicker() {
-        picker.delegate = self
-        picker.sourceType = .camera
-        picker.allowsEditing = true
-    }
-    
-}
-
-// AVCaptureVideoDataOutputSampleBufferDelegate protocol and related methods
-extension CameraViewController:  AVCaptureVideoDataOutputSampleBufferDelegate {
-    
-     func setupAVCapture(){
-        session.sessionPreset = AVCaptureSession.Preset.vga640x480
-        guard let device = AVCaptureDevice
-        .default(AVCaptureDevice.DeviceType.builtInWideAngleCamera,
-                 for: .video,
-                 position: AVCaptureDevice.Position.back) else {
-                            return
-        }
-        captureDevice = device
-        beginSession()
-    }
-
-    func beginSession(){
-        var deviceInput: AVCaptureDeviceInput!
-
-        do {
-            deviceInput = try AVCaptureDeviceInput(device: captureDevice)
-            guard deviceInput != nil else {
-                print("error: cant get deviceInput")
-                return
-            }
-
-            if self.session.canAddInput(deviceInput){
-                self.session.addInput(deviceInput)
-            }
-
-            videoDataOutput = AVCaptureVideoDataOutput()
-            videoDataOutput.alwaysDiscardsLateVideoFrames=true
-            videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-            videoDataOutput.setSampleBufferDelegate(self, queue:self.videoDataOutputQueue)
-
-            if session.canAddOutput(self.videoDataOutput){
-                session.addOutput(self.videoDataOutput)
-            }
-
-            videoDataOutput.connection(with: .video)?.isEnabled = true
-
-            previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspect
-
-            let rootLayer :CALayer = self.previewView.layer
-            rootLayer.masksToBounds=true
-            previewLayer.frame = rootLayer.bounds
-            rootLayer.addSublayer(self.previewLayer)
-            session.startRunning()
-        } catch let error as NSError {
-            deviceInput = nil
-            print("error: \(error.localizedDescription)")
-        }
-    }
-
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        // do stuff here
-    }
-
-    // clean up AVCapture
-    func stopCamera(){
-        session.stopRunning()
-    }
-
-}

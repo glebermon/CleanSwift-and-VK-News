@@ -38,37 +38,6 @@ final class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         vkSdk.uiDelegate = self
     }
     
-    func test() {
-        //  Converted to Swift 5.1 by Swiftify v5.1.30744 - https://objectivec2swift.com/
-        let photoRequest = VKApi.uploadWallPhotoRequest(UIImage(named: "search"), parameters: VKImageParameters.pngImage(), userId: Int((VKSdk.accessToken()?.userId)!)!, groupId: 0)
-        photoRequest?.execute(resultBlock: { response in
-            if let json = response?.json {
-                print("Photo: \(json)")
-            }
-            let photoInfo = (response?.parsedModel as? VKPhotoArray)?.object(at: 0)
-            var post: VKRequest? = nil
-            if let owner_id = photoInfo?.owner_id, let id = photoInfo?.id {
-                post = VKApi.wall().post([
-                VK_API_ATTACHMENTS: "photo\(owner_id)_\(id)"
-            ])
-            }
-            post?.execute(resultBlock: { response in
-                if let response = response {
-                    print("Result: \(response)")
-                }
-            }, errorBlock: { error in
-                if let error = error {
-                    print("Error: \(error)")
-                }
-            })
-        }, errorBlock: { error in
-            if let error = error {
-                print("Error: \(error)")
-            }
-        })
-        
-    }
-    
     func wakeUpSession() {
         
         let scope = ["wall", "friends", "video", "photos"]

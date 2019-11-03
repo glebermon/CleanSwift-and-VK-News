@@ -112,8 +112,8 @@ class NewsFeedCodeCell: UITableViewCell {
     
     // third layer on topView
     
-    let likesView : UIView = {
-        let view = UIView()
+    let likesView : UIButton = {
+        let view = UIButton()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -221,6 +221,7 @@ class NewsFeedCodeCell: UITableViewCell {
         iconImageView.clipsToBounds = true
         
         moreTextButton.addTarget(self, action: #selector(moreTextButtonTouch), for: .touchUpInside)
+        likesView.addTarget(self, action: #selector(buttonsPressed), for: .touchUpInside)
         
         overlayFirstLayer() // first layer
         overlaySecondLayer() // second layer
@@ -425,6 +426,10 @@ class NewsFeedCodeCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func buttonsPressed() {
+        print("123")
     }
 }
 

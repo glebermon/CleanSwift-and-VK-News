@@ -40,8 +40,8 @@
 		3388FA10235315280030F188 /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388FA0F235315270030F188 /* FeedResponse.swift */; };
 		3398396C23531CA400641A3C /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3398396B23531CA400641A3C /* NetworkDataFetcher.swift */; };
 		33A3B9FD23677D3E00815A58 /* NewsFeedTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A3B9FC23677D3E00815A58 /* NewsFeedTabBarViewController.swift */; };
-		33A3B9FF236782BB00815A58 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A3B9FE236782BB00815A58 /* CameraViewController.swift */; };
 		33A99F65236808E000416F8E /* TitleViewCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A99F64236808E000416F8E /* TitleViewCamera.swift */; };
+		33DEC04F236CA3CC007DB302 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DEC04E236CA3CC007DB302 /* CameraViewController.swift */; };
 		33DFE17B2334C67D003E9358 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE17A2334C67D003E9358 /* AppDelegate.swift */; };
 		33DFE17D2334C67D003E9358 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE17C2334C67D003E9358 /* AuthViewController.swift */; };
 		33DFE1852334C680003E9358 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 33DFE1832334C680003E9358 /* LaunchScreen.storyboard */; };
@@ -99,8 +99,8 @@
 		3388FA0F235315270030F188 /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		3398396B23531CA400641A3C /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
 		33A3B9FC23677D3E00815A58 /* NewsFeedTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedTabBarViewController.swift; sourceTree = "<group>"; };
-		33A3B9FE236782BB00815A58 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		33A99F64236808E000416F8E /* TitleViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewCamera.swift; sourceTree = "<group>"; };
+		33DEC04E236CA3CC007DB302 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		33DFE1772334C67D003E9358 /* VKNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		33DFE17A2334C67D003E9358 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		33DFE17C2334C67D003E9358 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 				3327639E23537D6B0078D356 /* NewsFeedModels.swift */,
 				3327639C23537D6B0078D356 /* NewsFeedWorker.swift */,
 				3327639D23537D6B0078D356 /* NewsFeedRouter.swift */,
-				33A3B9FE236782BB00815A58 /* CameraViewController.swift */,
+				33DEC04E236CA3CC007DB302 /* CameraViewController.swift */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -396,6 +396,7 @@
 			files = (
 				330956DE235D83C2007DD969 /* GallaryCollectionView.swift in Sources */,
 				3388FA10235315280030F188 /* FeedResponse.swift in Sources */,
+				33DEC04F236CA3CC007DB302 /* CameraViewController.swift in Sources */,
 				33A3B9FD23677D3E00815A58 /* NewsFeedTabBarViewController.swift in Sources */,
 				335014BB2364BC030097BA42 /* GradientView.swift in Sources */,
 				33A99F65236808E000416F8E /* TitleViewCamera.swift in Sources */,
@@ -424,7 +425,6 @@
 				335014B7236487A60097BA42 /* FooterView.swift in Sources */,
 				3388FA092351C6780030F188 /* API.swift in Sources */,
 				332763A523537D6B0078D356 /* NewsFeedModels.swift in Sources */,
-				33A3B9FF236782BB00815A58 /* CameraViewController.swift in Sources */,
 				332763AD235448320078D356 /* NewsFeedCell.swift in Sources */,
 				332763A623537D6B0078D356 /* NewsFeedViewController.swift in Sources */,
 			);
